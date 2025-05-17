@@ -6,7 +6,7 @@ import router from "./routes/route.js";
 import db from "./config/database.js";
 
 const app = express();
-const PORT = process.env.PORT || 5000; // ✅ Gunakan PORT dari environment
+const PORT = process.env.PORT || 8080; // ✅ Gunakan PORT dari environment
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
