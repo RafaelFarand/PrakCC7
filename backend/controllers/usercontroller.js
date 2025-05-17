@@ -126,10 +126,9 @@ async function login(req, res) {
   
           // Masukkin refresh token ke cookie
           res.cookie("refreshToken", refreshToken, {
-            httpOnly: false, // Ngatur cross-site scripting, untuk penggunaan asli aktifkan karena bisa nyegah serangan fetch data dari website "document.cookies"
-            sameSite: "none", // Ngatur domain yg request misal kalo strict cuman bisa akses ke link dari dan menuju domain yg sama, lax itu bisa dari domain lain tapi cuman bisa get
-            maxAge: 24 * 60 * 60 * 1000, // Ngatur lamanya token disimpan di cookie (dalam satuan ms)
-            secure: true, // Ini ngirim cookies cuman bisa dari https, kenapa? nyegah skema MITM di jaringan publik, tapi pas development di false in aja
+            httpOnly: true,
+            sameSite: "Lax",
+            secure: false, // ubah jadi false saat develop
           });
   
           // Kirim respons berhasil (200)
@@ -159,39 +158,24 @@ async function login(req, res) {
     }
   }
   
-  async function logout(req, res) {
-    // mengecek refresh token sama gak sama di database
-    const refreshToken = req.cookies.refreshToken;
-  
-    // Kalo ga sama atau ga ada kirim status code 204
-    if (!refreshToken) return res.sendStatus(204);
-  
-    // Kalau sama, cari user berdasarkan refresh token tadi
-    const user = await User.findOne({
-      where: {
-        refresh_token: refreshToken,
-      },
-    });
-  
-    // Kalau user gaada, kirim status code 204
-    if (!user.refresh_token) return res.sendStatus(204);
-  
-    // Kalau user ketemu, ambil user id
-    const userId = user.id;
-  
-    // Hapus refresh token dari DB berdasarkan user id tadi
-    await User.update(
-      { refresh_token: null },
-      {
-        where: {
-          id: userId,
-        },
-      }
-    );
-  
-    // Ngehapus cookies yg tersimpan
-    res.clearCookie("refreshToken");
-    return res.sendStatus(200);
-  }
+ async function logout(req, res) {
+  const refreshToken = req.cookies.refreshToken;
+
+  if (!refreshToken) return res.sendStatus(204);
+
+  const user = await User.findOne({
+    where: { refresh_token: refreshToken }
+  });
+
+  if (!user) return res.sendStatus(204); // <- ini perubahan penting
+
+  await User.update(
+    { refresh_token: null },
+    { where: { id: user.id } }
+  );
+
+  res.clearCookie("refreshToken");
+  return res.sendStatus(200);
+}
 
 export { login, logout, getUser, register };
