@@ -1,31 +1,37 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import router from './routes/route.js';
-import db from './config/database.js';
-
-dotenv.config();
+import express from "express";
+import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
+import router from "./routes/route.js";
+import db from "./config/database.js";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000; // ✅ Gunakan PORT dari environment
 
-(async () => {
-  try {
-    await db.authenticate();
-    await db.sync();
-    console.log("Database connected");
-  } catch (err) {
-    console.error("Database connection error:", err.message);
-  }
-})();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-app.use(cors({
-  origin: ['http://localhost:5500', 'http://127.0.0.1:5500'], // sesuaikan jika port frontend beda
-  credentials: true
-}));
-app.use(cookieParser());
+// Middleware
+app.use(cors());
 app.use(express.json());
 app.use(router);
+app.use(express.static(path.join(__dirname, "../frontend"))); // ✅ Untuk file statis
 
-app.listen(PORT, () => console.log(`Server started on http://localhost:${PORT}`));
+// Cek koneksi database
+(async () => {
+    try {
+        await db.authenticate();
+        console.log("Database connected");
+    } catch (error) {
+        console.error("Database connection failed:", error);
+    }
+})();
+
+// Default route
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "index.html"));
+});
+
+app.listen(PORT, () => {
+    console.log(`Server berjalan di port ${PORT}`);
+});
