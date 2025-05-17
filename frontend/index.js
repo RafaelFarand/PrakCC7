@@ -73,11 +73,15 @@ async function login() {
 // Logout
 async function logout() {
   try {
-    await apiCall("get", "/logout");
-  } catch {}
-  accessToken = "";
-  showPage('login');
+    await axios.get(`${API_URL}/logout`);
+    accessToken = "";
+    showPage("login");
+  } catch (err) {
+    console.error("Logout gagal:", err.message);
+    alert("Logout gagal");
+  }
 }
+
 
 // Token Refresh
 async function refreshToken() {
