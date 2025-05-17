@@ -1,20 +1,21 @@
 import { Sequelize } from "sequelize";
 import db from "../config/database.js";
 
-const user = db.define(
-    "users",
-    {
-        nama: Sequelize.STRING,
-        judul: Sequelize.STRING,
-        catatan: Sequelize.STRING,
+const { DataTypes } = Sequelize;
+
+const User = db.define("user", {
+    email: Sequelize.STRING,
+    username: Sequelize.STRING,
+    password: Sequelize.STRING,
+    refresh_token: {
+        type: DataTypes.TEXT,  // Explicitly use TEXT type for longer data
+        allowNull: true
     },
-    {
-        freezeTableName: true,
-        createdAt: "tanggal_dibuat",
-        updatedAt: "tanggal_diubah",
-    }
+},
+    { freezeTableName: true }
 );
 
-db.sync().then(() => console.log("Database synced"));
+// Use alter:true to update existing table structure
+db.sync({ alter: true }).then(() => console.log("Database User table synchronized"));
 
-export default user;
+export default User;

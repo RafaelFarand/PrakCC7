@@ -1,10 +1,21 @@
-import express from "express"
-import { getuser,createuser,updateuser,deleteuser } from "../controllers/usercontroller.js"
+import express from 'express';
+import { getNote, createNote, updateNote, deleteNote } from '../controllers/notecontroller.js';
+import { login, register, logout } from '../controllers/usercontroller.js';
+import { verifyToken } from '../middleware/VerifyToken.js';
+import { refreshToken } from '../controllers/RefreshToken.js';
 
-const router=express.Router()
+const router = express.Router();
 
-router.get('/user',getuser)
-router.post('/tambahdata', createuser)
-router.put('/edit-user/:id', updateuser)
-router.delete('/delete-user/:id', deleteuser)
+// CRUD NOTES
+router.get('/notes', verifyToken, getNote);
+router.post('/add-notes', verifyToken, createNote);
+router.put('/update-notes/:id', verifyToken, updateNote);
+router.delete('/delete-notes/:id', verifyToken, deleteNote);
+
+// Endpoint user
+router.get("/token", refreshToken);
+router.post("/login", login);
+router.post("/register", register);
+router.get("/logout", verifyToken, logout);
+
 export default router;

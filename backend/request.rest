@@ -31,4 +31,14 @@ Content-Type: application/json
 DELETE  http://localhost:5000/delete-user/3
 
 
+###
 
+POST  http://localhost:5000/register
+Content-Type: application/json
+
+{
+    "email":"alan@gmail.com",
+    "password":"goal",
+    "confPassword":"goal"
+    
+}
