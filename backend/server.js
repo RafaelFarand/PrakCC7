@@ -10,9 +10,6 @@ dotenv.config();
 const app = express();
 const app = express();
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
 
 (async () => {
   try {
@@ -32,4 +29,6 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(router);
 
-app.listen(PORT, () => console.log(`Server started on http://localhost:${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
