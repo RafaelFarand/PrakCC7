@@ -7,8 +7,8 @@ import db from './config/database.js';
 
 dotenv.config();
 
-const app = express();
-const app = express();
+const app = express(); /
+
 const PORT = process.env.PORT || 5000;
 
 (async () => {
@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 5000;
 })();
 
 app.use(cors({
-  origin: ['http://localhost:5500', 'http://127.0.0.1:5500'], // sesuaikan jika port frontend beda
+  origin: ['http://localhost:5500', 'http://127.0.0.1:5500'],
   credentials: true
 }));
 app.use(cookieParser());
