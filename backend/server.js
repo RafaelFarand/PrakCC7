@@ -8,33 +8,32 @@ import db from "./config/database.js";
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+console.log('PORT environment variable:', process.env.PORT);
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Middleware
 app.use(cors({
   origin: ['http://localhost:5500', 'http://127.0.0.1:5500'],
   credentials: true
 }));
 app.use(express.json());
 app.use(router);
-app.use(express.static(path.join(__dirname, "../frontend"))); 
+app.use(express.static(path.join(__dirname, "../frontend")));
 
-// Cek koneksi database
 (async () => {
-    try {
-        await db.authenticate();
-        console.log("Database connected");
-    } catch (error) {
-        console.error("Database connection failed:", error);
-    }
+  try {
+    await db.authenticate();
+    console.log("Database connected");
+  } catch (error) {
+    console.error("Database connection failed:", error);
+  }
 })();
 
-// Default route
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "index.html"));
+  res.sendFile(path.join(__dirname, "../frontend", "index.html"));
 });
 
 app.listen(PORT, () => {
-    console.log(`Server berjalan di port ${PORT}`);
+  console.log(`Server berjalan di port ${PORT}`);
 });
