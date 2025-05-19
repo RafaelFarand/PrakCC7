@@ -13,11 +13,11 @@ steps:
     entrypoint: gcloud
     args:
       [
-       - run
+      - run
       - deploy
-      - notes-backend-hafizh
+      - notes
       - --image
-      - gcr.io/$PROJECT_ID/be-hafizh
+      - gcr.io/$PROJECT_ID/notes
       - --timeout
       - 1000s
       - --port
