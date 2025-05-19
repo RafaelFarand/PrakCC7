@@ -13,21 +13,20 @@ steps:
     entrypoint: gcloud
     args:
       [
-      - run
-      - deploy
-      - notes
-      - --image
-      - gcr.io/$PROJECT_ID/notes
-      - --timeout
-      - 1000s
-      - --port
-      - "5000"
-      - --region
-      - us-central1
-      - --allow-unauthenticated
-      - --set-env-vars
-      - ACCESS_TOKEN_SECRET=${_ACCESS_TOKEN_SECRET},REFRESH_TOKEN_SECRET=${_REFRESH_TOKEN_SECRET},DB_HOST=${_DB_HOST},DB_NAME=${_DB_NAME},DB_PASS=${_DB_PASS},DB_USER=${_DB_USER}
+      "run",
+      "deploy",
+      "notes",
+      "--image",
+      "gcr.io/$PROJECT_ID/notes",
+      "--timeout",
+      "1000s",
+      "--port",
+      "5000",
+      "--region",
+      "us-central1",
+      "--allow-unauthenticated",
       ]
+
 
 # Log hanya akan disimpan di Google Cloud Logging
 # Log tidak akan disimpan di Google Cloud Storage (butuh hak akses).
