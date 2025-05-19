@@ -14,20 +14,7 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 const app = express();
-const PORT = process.env.PORT;
-
-console.log('Environment PORT:', process.env.PORT);
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-app.use(cors({
-  origin: ['http://localhost:5500', 'http://127.0.0.1:5500'],
-  credentials: true
-}));
-app.use(express.json());
-app.use(router);
-app.use(express.static(path.join(__dirname, "../frontend")));
+const PORT = process.env.PORT || 5000;
 
 (async () => {
   try {
@@ -42,6 +29,4 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend", "index.html"));
 });
 
-app.listen(PORT, () => {
-  console.log(`Server berjalan di port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server started on http://localhost:${PORT}`));

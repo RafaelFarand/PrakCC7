@@ -159,24 +159,38 @@ async function login(req, res) {
   }
   
   async function logout(req, res) {
+    // mengecek refresh token sama gak sama di database
     const refreshToken = req.cookies.refreshToken;
   
+    // Kalo ga sama atau ga ada kirim status code 204
     if (!refreshToken) return res.sendStatus(204);
   
+    // Kalau sama, cari user berdasarkan refresh token tadi
     const user = await User.findOne({
-      where: { refresh_token: refreshToken }
+      where: {
+        refresh_token: refreshToken,
+      },
     });
   
-    if (!user) return res.sendStatus(204); // <- ini perubahan penting
+    // Kalau user gaada, kirim status code 204
+    if (!user.refresh_token) return res.sendStatus(204);
   
+    // Kalau user ketemu, ambil user id
+    const userId = user.id;
+  
+    // Hapus refresh token dari DB berdasarkan user id tadi
     await User.update(
       { refresh_token: null },
-      { where: { id: user.id } }
+      {
+        where: {
+          id: userId,
+        },
+      }
     );
   
+    // Ngehapus cookies yg tersimpan
     res.clearCookie("refreshToken");
     return res.sendStatus(200);
   }
-  
 
 export { login, logout, getUser, register };

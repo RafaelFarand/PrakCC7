@@ -13,19 +13,20 @@ steps:
     entrypoint: gcloud
     args:
       [
-        "run",
-        "deploy",
-        "notes",
-        "--image",
-        "gcr.io/$PROJECT_ID/notes",
-        "--timeout",
-        "1000s",
-        "--port",
-        "5000",
-        "--region",
-        "us-central1",
-        "--allow-unauthenticated",
+      "run",
+      "deploy",
+      "notes",
+      "--image",
+      "gcr.io/$PROJECT_ID/notes",
+      "--timeout",
+      "1000s",
+      "--port",
+      "5000",
+      "--region",
+      "us-central1",
+      "--allow-unauthenticated",
       ]
+
 
 # Log hanya akan disimpan di Google Cloud Logging
 # Log tidak akan disimpan di Google Cloud Storage (butuh hak akses).
