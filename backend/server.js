@@ -6,14 +6,14 @@ import router from "./routes/route.js";
 import db from "./config/database.js";
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:5500', 'http://127.0.0.1:5500'], // atau frontend URL
+  origin: ['http://localhost:5500', 'http://127.0.0.1:5500'],
   credentials: true
 }));
 app.use(express.json());
