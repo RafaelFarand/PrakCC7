@@ -7,7 +7,7 @@
     "nodemon": "^3.1.9",
     "sequelize": "^6.37.5"
   },
-  "name": "back-end",
+  "name": "backend",
   "version": "1.0.0",
   "type": "module",
   "main": "server.js",
