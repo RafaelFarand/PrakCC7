@@ -32,7 +32,7 @@ export const refreshToken = async (req, res) => {
             safeUserData,
             process.env.ACCESS_TOKEN_SECRET,
             {
-              expiresIn: "30s",
+              expiresIn: "30m",
             }
           );
           res.json({ accessToken });
