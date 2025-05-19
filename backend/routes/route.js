@@ -16,6 +16,6 @@ router.delete('/delete-notes/:id', verifyToken, deleteNote);
 router.get("/token", refreshToken);
 router.post("/login", login);
 router.post("/register", register);
-router.get("/logout", verifyToken, logout);
+router.get("/logout", logout);
 
 export default router;
