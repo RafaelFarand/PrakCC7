@@ -5,6 +5,14 @@ import { fileURLToPath } from "url";
 import router from "./routes/route.js";
 import db from "./config/database.js";
 
+// Logging error global
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+});
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection:', reason);
+});
+
 const app = express();
 const PORT = process.env.PORT || 8080;
 
@@ -27,6 +35,7 @@ app.use(express.static(path.join(__dirname, "../frontend")));
     console.log("Database connected");
   } catch (error) {
     console.error("Database connection failed:", error);
+    // Jangan exit process
   }
 })();
 
