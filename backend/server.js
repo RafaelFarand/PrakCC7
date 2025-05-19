@@ -16,7 +16,7 @@ process.on('unhandledRejection', (reason, promise) => {
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-console.log('PORT environment variable:', process.env.PORT);
+console.log('Environment PORT:', process.env.PORT);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -35,7 +35,6 @@ app.use(express.static(path.join(__dirname, "../frontend")));
     console.log("Database connected");
   } catch (error) {
     console.error("Database connection failed:", error);
-    // Jangan exit process
   }
 })();
 
