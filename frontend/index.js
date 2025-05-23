@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080";
+const API_URL = "https://notes-1031435520100.us-central1.run.app";
 let accessToken = "";
 
 axios.defaults.withCredentials = true;
