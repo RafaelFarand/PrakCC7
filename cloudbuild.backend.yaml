@@ -17,7 +17,7 @@ steps:
       "deploy",
       "be",
       "--image",
-      "gcr.io/$PROJECT_ID/be-nazhif",
+      "gcr.io/$PROJECT_ID/notes",
       "--timeout",
       "1000s",
       "--port",
