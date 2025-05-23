@@ -15,16 +15,20 @@ steps:
       [
       "run",
       "deploy",
-      "notes",
+      "be",
       "--image",
-      "gcr.io/$PROJECT_ID/notes",
+      "gcr.io/$PROJECT_ID/be-nazhif",
       "--timeout",
       "1000s",
       "--port",
       "5000",
       "--region",
       "us-central1",
+      "--platform",
+      "managed",
       "--allow-unauthenticated",
+      "--set-env-vars",
+      "ACCESS_TOKEN_SECRET=${_ACCESS_TOKEN_SECRET},REFRESH_TOKEN_SECRET=${_REFRESH_TOKEN_SECRET},DB_HOST=${_DB_HOST},DB_NAME=${_DB_NAME},DB_PASSWORD=${_DB_PASSWORD},DB_USERNAME=${_DB_USERNAME}"
       ]
 
 
