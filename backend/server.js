@@ -35,6 +35,4 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend", "index.html"));
 });
 
-app.listen(PORT, () => {
-    console.log(`Server berjalan di port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server started on http://localhost:${PORT}`));
